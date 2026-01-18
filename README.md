@@ -34,6 +34,54 @@ npm run serve:all    # Start backend + frontend
 **Open:** http://localhost:4200/login
 
 ---
+---
+### Installation
+
+```bash
+# 1. Clone repository
+git clone <repository-url>
+cd bakbar-7f3a2c1b-9e4d-4f2a-b8c9-5d6e7f8a9b0c
+
+# 2. Install dependencies
+npm install
+
+# 3. Seed database
+npm run seed
+```
+
+**What `npm run seed` creates:**
+- 3 Roles (Owner, Admin, Viewer)
+- 2 Organizations (TurboVets HQ → Engineering)
+- 4 Users (see login table above)
+- 5 Sample tasks
+
+### Run Applications
+
+```bash
+# Start both (recommended)
+npm run serve:all
+
+# OR start separately
+npm run start:api       # Backend → http://localhost:3000
+npm run start:dashboard # Frontend → http://localhost:4200
+```
+
+### Environment Variables
+
+Already configured in `apps/api/.env`:
+
+```env
+DATABASE_TYPE=sqlite
+DATABASE_PATH=./data/database.sqlite
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+JWT_EXPIRATION=24h
+PORT=3000
+FRONTEND_URL=http://localhost:4200
+```
+
+⚠️ **For production:** Change `JWT_SECRET` to a strong random key.
+
+---
 
 ## 📋 Tech Stack
 
@@ -305,54 +353,7 @@ it('should hide create button for Viewer', () => {
 });
 ```
 
----
-### Installation
 
-```bash
-# 1. Clone repository
-git clone <repository-url>
-cd bakbar-7f3a2c1b-9e4d-4f2a-b8c9-5d6e7f8a9b0c
-
-# 2. Install dependencies
-npm install
-
-# 3. Seed database
-npm run seed
-```
-
-**What `npm run seed` creates:**
-- 3 Roles (Owner, Admin, Viewer)
-- 2 Organizations (TurboVets HQ → Engineering)
-- 4 Users (see login table above)
-- 5 Sample tasks
-
-### Run Applications
-
-```bash
-# Start both (recommended)
-npm run serve:all
-
-# OR start separately
-npm run start:api       # Backend → http://localhost:3000
-npm run start:dashboard # Frontend → http://localhost:4200
-```
-
-### Environment Variables
-
-Already configured in `apps/api/.env`:
-
-```env
-DATABASE_TYPE=sqlite
-DATABASE_PATH=./data/database.sqlite
-JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
-JWT_EXPIRATION=24h
-PORT=3000
-FRONTEND_URL=http://localhost:4200
-```
-
-⚠️ **For production:** Change `JWT_SECRET` to a strong random key.
-
----
 
 ## 🔧 Testing the System
 
