@@ -1,6 +1,6 @@
 # Full Stack Coding Challenge: Secure Task Management System
 
-**Repository:** `atlaschallenge-7f3a2c1b-9e4d-4f2a-b8c9-5d6e7f8a9b0c`
+**Repository:** `bakbar-7f3a2c1b-9e4d-4f2a-b8c9-5d6e7f8a9b0c`
 
 A secure, role-based task management system built with **NestJS**, **Angular 17**, and **NX monorepo** architecture.
 
@@ -42,7 +42,7 @@ npm run serve:all    # Start backend + frontend
 ## 🗃️ Monorepo Structure
 
 ```
-atlaschallenge-7f3a2c1b-9e4d-4f2a-b8c9-5d6e7f8a9b0c/
+bakbar-7f3a2c1b-9e4d-4f2a-b8c9-5d6e7f8a9b0c/
 ├── apps/
 │   ├── api/                      # NestJS Backend
 │   │   └── src/app/
@@ -312,7 +312,7 @@ it('should hide create button for Viewer', () => {
 ```bash
 # 1. Clone repository
 git clone <repository-url>
-cd atlaschallenge-7f3a2c1b-9e4d-4f2a-b8c9-5d6e7f8a9b0c
+cd bakbar-7f3a2c1b-9e4d-4f2a-b8c9-5d6e7f8a9b0c
 
 # 2. Install dependencies
 npm install
