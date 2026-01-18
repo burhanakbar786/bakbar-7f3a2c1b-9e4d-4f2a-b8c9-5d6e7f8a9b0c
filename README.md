@@ -5,6 +5,12 @@
 A secure, role-based task management system built with **NestJS**, **Angular 17**, and **NX monorepo** architecture.
 
 ---
+## ⚙️ Setup Instructions
+
+### Prerequisites
+- **Node.js** v18+ - [Download](https://nodejs.org/)
+- **npm** v9+
+---
 
 ## 🎯 Quick Start - Test Login Credentials
 
@@ -300,13 +306,6 @@ it('should hide create button for Viewer', () => {
 ```
 
 ---
-
-## ⚙️ Setup Instructions
-
-### Prerequisites
-- **Node.js** v18+ - [Download](https://nodejs.org/)
-- **npm** v9+
-
 ### Installation
 
 ```bash
