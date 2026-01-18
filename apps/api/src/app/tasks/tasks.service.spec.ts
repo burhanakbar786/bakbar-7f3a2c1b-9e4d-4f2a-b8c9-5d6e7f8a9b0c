@@ -4,7 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Task } from './entities/task.entity';
 import { Organization } from '../organizations/entities/organization.entity';
 import { AuditService } from '../audit/audit.service';
-import { RoleName } from '@app/data';
+import { RoleName } from '@turbovets/data';
 import { ForbiddenException } from '@nestjs/common';
 
 describe('TasksService', () => {

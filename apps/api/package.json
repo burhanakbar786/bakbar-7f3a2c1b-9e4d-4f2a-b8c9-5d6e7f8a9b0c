@@ -5,9 +5,15 @@
     "start": "node dist/main.js",
     "dev": "nest start --watch",
     "build": "nest build",
-    "seed": "ts-node src/seed.ts",
+    "seed": "ts-node -r tsconfig-paths/register src/seed.ts",
     "typeorm": "typeorm-ts-node-commonjs"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.16",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0"
+  },
+  "dependencies": {
+    "@nestjs/config": "^4.0.2"
+  }
 }

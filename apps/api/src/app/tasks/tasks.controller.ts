@@ -10,8 +10,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { CreateTaskDto, UpdateTaskDto } from '@app/data';
-import { JwtAuthGuard, CurrentUser } from '@app/auth';
+import { CreateTaskDto, UpdateTaskDto } from '@turbovets/data';
+import { JwtAuthGuard, CurrentUser } from '@turbovets/auth';
 
 @Controller('tasks')
 @UseGuards(JwtAuthGuard)

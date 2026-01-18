@@ -3,10 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
 import { Task } from './entities/task.entity';
 import { Organization } from '../organizations/entities/organization.entity';
-import { CreateTaskDto, UpdateTaskDto, RoleName } from '@app/data';
-import { getAccessibleOrgIds } from '@app/auth';
+import { CreateTaskDto, UpdateTaskDto, RoleName } from '@turbovets/data';
+import { getAccessibleOrgIds } from '@turbovets/auth';
 import { AuditService } from '../audit/audit.service';
-import { AuditAction } from '@app/data';
+import { AuditAction } from '@turbovets/data';
 
 @Injectable()
 export class TasksService {

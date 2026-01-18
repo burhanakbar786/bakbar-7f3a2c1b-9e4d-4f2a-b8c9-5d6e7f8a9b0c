@@ -1,7 +1,7 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { AuditService } from './audit.service';
-import { JwtAuthGuard, CurrentUser, Roles, RolesGuard } from '@app/auth';
-import { RoleName } from '@app/data';
+import { JwtAuthGuard, CurrentUser, Roles, RolesGuard } from '@turbovets/auth';
+import { RoleName } from '@turbovets/data';
 
 @Controller('audit-log')
 @UseGuards(JwtAuthGuard, RolesGuard)

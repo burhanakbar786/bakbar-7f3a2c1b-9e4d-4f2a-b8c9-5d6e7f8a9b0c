@@ -5,9 +5,9 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from '../users/entities/user.entity';
 import { Role } from '../users/entities/role.entity';
-import { LoginDto, AuthResponse, RegisterDto } from '@app/data';
+import { LoginDto, AuthResponse, RegisterDto } from '@turbovets/data';
 import { AuditService } from '../audit/audit.service';
-import { AuditAction } from '@app/data';
+import { AuditAction } from '@turbovets/data';
 
 @Injectable()
 export class AuthService {

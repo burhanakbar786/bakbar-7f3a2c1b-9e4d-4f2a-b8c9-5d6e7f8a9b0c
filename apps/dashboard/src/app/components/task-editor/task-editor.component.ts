@@ -2,17 +2,17 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ITask, TaskStatus, TaskPriority, CreateTaskDto, UpdateTaskDto } from '@turbovets/data';
-import { TaskService } from '../../core/services/task.service';
-import { NotificationService } from '../../core/services/notification.service';
+import { TaskService } from '../../../core/services/task.service';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
-  selector: 'app-task-modal',
+  selector: 'app-task-editor',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './task-modal.component.html',
-  styleUrls: ['./task-modal.component.css'],
+  templateUrl: './task-editor.component.html',
+  styleUrls: ['./task-editor.component.css'],
 })
-export class TaskModalComponent implements OnInit {
+export class TaskEditorComponent implements OnInit {
   @Input() task: ITask | null = null;
   @Output() saved = new EventEmitter<void>();
   @Output() cancelled = new EventEmitter<void>();

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AuditLog } from './entities/audit-log.entity';
-import { IAuditLog, AuditAction } from '@app/data';
+import { IAuditLog, AuditAction } from '@turbovets/data';
 
 interface CreateAuditLogDto {
   userId: number;

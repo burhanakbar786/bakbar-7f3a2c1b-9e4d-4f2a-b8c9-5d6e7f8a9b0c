@@ -2,21 +2,21 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { TaskService } from '../../core/services/task.service';
-import { AuthService } from '../../core/services/auth.service';
-import { NotificationService } from '../../core/services/notification.service';
+import { TaskService } from '../../../core/services/task.service';
+import { AuthService } from '../../../core/services/auth.service';
+import { NotificationService } from '../../../core/services/notification.service';
 import { ITask, TaskStatus, TaskPriority } from '@turbovets/data';
-import { TaskModalComponent } from '../task-modal/task-modal.component';
-import { NotificationComponent } from '../../shared/notification/notification.component';
+import { TaskEditorComponent } from '../task-editor/task-editor.component';
+import { NotificationComponent } from '../../../shared/notification/notification.component';
 
 @Component({
-  selector: 'app-task-dashboard',
+  selector: 'app-task-board',
   standalone: true,
-  imports: [CommonModule, FormsModule, DragDropModule, TaskModalComponent, NotificationComponent],
-  templateUrl: './task-dashboard.component.html',
-  styleUrls: ['./task-dashboard.component.css'],
+  imports: [CommonModule, FormsModule, DragDropModule, TaskEditorComponent, NotificationComponent],
+  templateUrl: './task-board.component.html',
+  styleUrls: ['./task-board.component.css'],
 })
-export class TaskDashboardComponent implements OnInit {
+export class TaskBoardComponent implements OnInit {
   tasks: ITask[] = [];
   filteredTasks: ITask[] = [];
   currentUser: any;

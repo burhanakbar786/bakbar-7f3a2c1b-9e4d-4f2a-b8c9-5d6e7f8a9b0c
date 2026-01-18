@@ -1,4 +1,4 @@
-import { IOrganization, RoleName } from '@app/data';
+import { IOrganization, RoleName } from '@turbovets/data';
 
 /**
  * Get all organization IDs that a user has access to based on their role and organization

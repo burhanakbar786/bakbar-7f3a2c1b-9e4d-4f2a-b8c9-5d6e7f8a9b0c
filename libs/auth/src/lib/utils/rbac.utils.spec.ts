@@ -4,7 +4,7 @@ import {
   getRoleLevel,
   hasRoleLevel,
 } from './rbac.utils';
-import { RoleName } from '@app/data';
+import { RoleName } from '@turbovets/data';
 
 describe('RBAC Utils', () => {
   describe('findChildOrganizations', () => {
