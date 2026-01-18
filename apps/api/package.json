@@ -1,0 +1,13 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node dist/main.js",
+    "dev": "nest start --watch",
+    "build": "nest build",
+    "seed": "ts-node src/seed.ts",
+    "typeorm": "typeorm-ts-node-commonjs"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
