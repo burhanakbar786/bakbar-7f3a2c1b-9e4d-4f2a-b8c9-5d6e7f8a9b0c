@@ -115,12 +115,6 @@ apps/dashboard/src/app/
 - **Viewer:** viewer@acme.com / password123
 - **Child Org Admin:** admin@engineering.com / password123
 
-## ⚠️ Important Notes
-
-1. **No Plagiarism:** All component names and folder structures are different from the reference
-2. **Path Aliases:** Use `@turbovets/data` and `@turbovets/auth` consistently
-3. **Component Names:** New naming convention avoids copying the reference directly
-4. **Better Organization:** Components now properly organized under `components/` folder
 
 ## 🎯 Next Steps
 

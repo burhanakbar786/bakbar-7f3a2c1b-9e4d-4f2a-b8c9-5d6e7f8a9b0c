@@ -23,6 +23,12 @@ export class Role {
   @Column({ unique: true })
   name: RoleType;
 
+  @Column({ nullable: true })
+  description?: string;
+
+  @Column({ default: 1 })
+  level: number;
+
   @ManyToMany(() => Permission)
   @JoinTable({
     name: 'role_permissions',

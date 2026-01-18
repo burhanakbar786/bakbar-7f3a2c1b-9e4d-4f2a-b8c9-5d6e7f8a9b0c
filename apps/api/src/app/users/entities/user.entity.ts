@@ -31,7 +31,7 @@ export class User {
   organizationId: number;
 
   @Column()
-  roleId: number;
+  roleId: string;
 
   @ManyToOne(() => Organization, { eager: true })
   @JoinColumn({ name: 'organizationId' })

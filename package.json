@@ -1,7 +1,7 @@
 {
   "name": "atlaschallenge-7f3a2c1b-9e4d-4f2a-b8c9-5d6e7f8a9b0c",
   "version": "1.0.0",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
@@ -64,6 +64,7 @@
     "@nx/eslint-plugin": "^17.0.0",
     "@nx/jest": "^17.0.0",
     "@nx/js": "^17.0.0",
+    "@nx/webpack": "^17.3.2",
     "@nx/workspace": "^17.0.0",
     "@types/bcrypt": "^5.0.2",
     "@types/jest": "^29.4.0",
@@ -84,7 +85,9 @@
     "prettier": "^3.0.0",
     "tailwindcss": "^3.3.0",
     "ts-jest": "^29.1.0",
+    "ts-loader": "^9.5.4",
     "ts-node": "^10.9.1",
+    "tsconfig-paths-webpack-plugin": "^4.2.0",
     "tsx": "^4.21.0",
     "typescript": "^5.2.2"
   }
