@@ -16,10 +16,12 @@ import { Task } from './tasks/entities/task.entity';
 import { AuditLog } from './audit/entities/audit-log.entity';
 
 const envFilePath = path.resolve(process.cwd(), 'apps/api/.env');
+
+// Always resolve database path relative to apps/api, not cwd
 const databasePath = process.env.DATABASE_PATH
   ? path.isAbsolute(process.env.DATABASE_PATH)
     ? process.env.DATABASE_PATH
-    : path.resolve(process.cwd(), process.env.DATABASE_PATH)
+    : path.resolve(process.cwd(), 'apps/api', process.env.DATABASE_PATH.replace('./', ''))
   : path.resolve(process.cwd(), 'apps/api/data/database.sqlite');
 
 console.log('🔍 [DEBUG] process.cwd():', process.cwd());

@@ -11,20 +11,23 @@ import { AuditLog } from './app/audit/entities/audit-log.entity';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
 
-const envFilePath = path.resolve(process.cwd(), 'apps/api/.env');
+const envFilePath = path.resolve(process.cwd(), '.env');
 dotenv.config({ path: envFilePath });
 
+// Since this runs from apps/api directory, we need to adjust paths
 const resolvedDatabasePath = process.env.DATABASE_PATH
   ? path.isAbsolute(process.env.DATABASE_PATH)
     ? process.env.DATABASE_PATH
     : path.resolve(process.cwd(), process.env.DATABASE_PATH)
-  : path.resolve(process.cwd(), 'apps/api/data/database.sqlite');
+  : path.resolve(process.cwd(), 'data/database.sqlite');
 
 const AppDataSource = new DataSource({
   type: 'sqlite',
   database: resolvedDatabasePath,
   entities: [User, Role, Permission, Organization, Task, AuditLog],
   synchronize: true,
+  logging: false,
+  dropSchema: true,
 });
 
 async function seed() {

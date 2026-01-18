@@ -219,4 +219,13 @@ export class TaskBoardComponent implements OnInit {
         : 0,
     };
   }
+
+  getTasksByPriority(priority: string): number {
+    return this.tasks.filter(task => task.priority === priority).length;
+  }
+
+  canCreateTask(): boolean {
+    const role = this.currentUser?.role?.name || this.currentUser?.role;
+    return role === 'Owner' || role === 'Admin';
+  }
 }
