@@ -9,8 +9,8 @@ import { NotificationService } from '../../../core/services/notification.service
   selector: 'app-signin',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css'],
+  templateUrl: '../template/signin.component.html',
+  styleUrls: ['../styles/signin.component.css'],
 })
 export class SigninComponent {
   loginForm: FormGroup;

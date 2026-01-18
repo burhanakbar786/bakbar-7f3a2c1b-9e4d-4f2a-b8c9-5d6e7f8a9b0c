@@ -20,8 +20,8 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
     "paths": {
-      "@app/data": ["../../libs/data/src/index.ts"],
-      "@app/auth": ["../../libs/auth/src/index.ts"]
+      "@turbovets/data": ["../../libs/data/src/index.ts"],
+      "@turbovets/auth": ["../../libs/auth/src/index.ts"]
     }
   },
   "include": ["src/**/*"],

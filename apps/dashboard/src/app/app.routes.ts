@@ -5,7 +5,7 @@ export const routes: Routes = [
   {
     path: 'signin',
     loadComponent: () =>
-      import('./components/signin/signin.component').then((m) => m.SigninComponent),
+      import('./components/signin/logic/signin.component').then((m) => m.SigninComponent),
   },
   {
     path: 'login',
@@ -16,7 +16,7 @@ export const routes: Routes = [
     path: 'dashboard',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./components/task-board/task-board.component').then(
+      import('./components/task-board/logic/task-board.component').then(
         (m) => m.TaskBoardComponent,
       ),
   },

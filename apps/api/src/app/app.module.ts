@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import * as path from 'path';
+import { AppController } from './app.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
@@ -13,14 +15,26 @@ import { Organization } from './organizations/entities/organization.entity';
 import { Task } from './tasks/entities/task.entity';
 import { AuditLog } from './audit/entities/audit-log.entity';
 
+const envFilePath = path.resolve(process.cwd(), 'apps/api/.env');
+const databasePath = process.env.DATABASE_PATH
+  ? path.isAbsolute(process.env.DATABASE_PATH)
+    ? process.env.DATABASE_PATH
+    : path.resolve(process.cwd(), process.env.DATABASE_PATH)
+  : path.resolve(process.cwd(), 'apps/api/data/database.sqlite');
+
+console.log('🔍 [DEBUG] process.cwd():', process.cwd());
+console.log('🔍 [DEBUG] Database path resolved to:', databasePath);
+console.log('🔍 [DEBUG] Env file path:', envFilePath);
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath,
     }),
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: process.env.DATABASE_PATH || 'task-management.db',
+      database: databasePath,
       entities: [User, Role, Permission, Organization, Task, AuditLog],
       synchronize: true, // Set to false in production
       logging: false,
@@ -31,5 +45,6 @@ import { AuditLog } from './audit/entities/audit-log.entity';
     OrganizationsModule,
     AuditModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}

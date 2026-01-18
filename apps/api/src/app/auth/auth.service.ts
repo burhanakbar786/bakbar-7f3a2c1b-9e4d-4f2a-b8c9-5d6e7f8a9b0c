@@ -26,6 +26,8 @@ export class AuthService {
       relations: ['role', 'organization'],
     });
 
+    console.log('🔍 [DEBUG] validateUser lookup for:', email, '→ found:', !!user);
+
     if (!user) {
       return null;
     }
@@ -43,6 +45,8 @@ export class AuthService {
     const user = await this.validateUser(loginDto.email, loginDto.password);
 
     if (!user) {
+      // Helpful dev log to see why login failed (user missing or bad password)
+      console.warn('Login failed for email', loginDto.email);
       throw new UnauthorizedException('Invalid credentials');
     }
 

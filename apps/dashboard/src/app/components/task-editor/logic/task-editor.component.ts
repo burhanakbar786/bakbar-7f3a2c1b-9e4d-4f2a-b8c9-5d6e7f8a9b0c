@@ -2,15 +2,15 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ITask, TaskStatus, TaskPriority, CreateTaskDto, UpdateTaskDto } from '@turbovets/data';
-import { TaskService } from '../../core/services/task.service';
-import { NotificationService } from '../../core/services/notification.service';
+import { TaskService } from '../../../core/services/task.service';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-task-editor',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './task-editor.component.html',
-  styleUrls: ['./task-editor.component.css'],
+  templateUrl: '../template/task-editor.component.html',
+  styleUrls: ['../styles/task-editor.component.css'],
 })
 export class TaskEditorComponent implements OnInit {
   @Input() task: ITask | null = null;
