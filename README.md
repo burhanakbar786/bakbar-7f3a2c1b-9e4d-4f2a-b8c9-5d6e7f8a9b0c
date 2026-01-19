@@ -8,13 +8,14 @@ A production-ready, role-based task management system built with **NestJS**, **A
 
 ## 📋 Table of Contents
 1. [Quick Start](#-quick-start)
-2. [Architecture](#-architecture)
-3. [JWT Authentication](#-jwt-authentication-flow)
-4. [RBAC Implementation](#-rbac-implementation)
-5. [API Documentation](#-api-documentation)
-6. [Tech Stack](#-tech-stack)
-7. [Testing](#-testing)
-8. [Security](#-security-features)
+2. [Tech Stack](#-tech-stack)
+3. [Monorepo Structure](#️-monorepo-structure)
+4. [System Architecture](#️-system-architecture)
+5. [Database Schema & RBAC](#-database-schema--rbac)
+6. [Authentication & Security](#-authentication--security)
+7. [API Documentation](#-api-documentation)
+8. [Frontend Features](#-frontend-features)
+9. [Testing](#-testing)
 
 ---
 
