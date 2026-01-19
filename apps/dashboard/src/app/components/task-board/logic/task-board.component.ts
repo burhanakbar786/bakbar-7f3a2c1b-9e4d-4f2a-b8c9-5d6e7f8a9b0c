@@ -137,6 +137,11 @@ export class TaskBoardComponent implements OnInit {
   }
 
   updateTaskStatus(task: ITask, status: TaskStatus): void {
+    if (!this.canEditTask()) {
+      this.notificationService.error('You do not have permission to update tasks');
+      this.loadTasks();
+      return;
+    }
     this.taskService.updateTask(task.id, { status }).subscribe({
       next: (updated) => {
         const index = this.tasks.findIndex((t) => t.id === task.id);
@@ -162,6 +167,10 @@ export class TaskBoardComponent implements OnInit {
   }
 
   openEditTaskModal(task: ITask): void {
+    if (!this.canEditTask()) {
+      this.notificationService.error('You do not have permission to edit tasks');
+      return;
+    }
     this.selectedTask = task;
     this.showTaskModal = true;
   }
@@ -177,6 +186,10 @@ export class TaskBoardComponent implements OnInit {
   }
 
   deleteTask(task: ITask): void {
+    if (!this.canDeleteTask()) {
+      this.notificationService.error('You do not have permission to delete tasks');
+      return;
+    }
     if (!confirm(`Are you sure you want to delete "${task.title}"?`)) {
       return;
     }
@@ -245,6 +258,16 @@ export class TaskBoardComponent implements OnInit {
   }
 
   canCreateTask(): boolean {
+    const role = this.currentUser?.role?.name || this.currentUser?.role;
+    return role === 'Owner' || role === 'Admin';
+  }
+
+  canEditTask(): boolean {
+    const role = this.currentUser?.role?.name || this.currentUser?.role;
+    return role === 'Owner' || role === 'Admin';
+  }
+
+  canDeleteTask(): boolean {
     const role = this.currentUser?.role?.name || this.currentUser?.role;
     return role === 'Owner' || role === 'Admin';
   }

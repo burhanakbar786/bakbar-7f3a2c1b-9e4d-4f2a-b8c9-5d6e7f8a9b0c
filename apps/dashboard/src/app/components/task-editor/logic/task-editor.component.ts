@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ITask, TaskStatus, TaskPriority, CreateTaskDto, UpdateTaskDto } from '@turbovets/data';
 import { TaskService } from '../../../core/services/task.service';
 import { NotificationService } from '../../../core/services/notification.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-task-editor',
@@ -23,11 +24,14 @@ export class TaskEditorComponent implements OnInit {
   statuses = Object.values(TaskStatus);
   priorities = Object.values(TaskPriority);
   categories = ['Work', 'Personal', 'Urgent', 'Meeting'];
+  currentUser: any;
+  canEdit = false;
 
   constructor(
     private fb: FormBuilder,
     private taskService: TaskService,
     private notificationService: NotificationService,
+    private authService: AuthService,
   ) {
     this.taskForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
@@ -40,6 +44,10 @@ export class TaskEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentUser = this.authService.getCurrentUser();
+    const role = this.currentUser?.role?.name || this.currentUser?.role;
+    this.canEdit = role === 'Owner' || role === 'Admin';
+
     if (this.task) {
       this.taskForm.patchValue({
         title: this.task.title,
@@ -52,9 +60,17 @@ export class TaskEditorComponent implements OnInit {
           : '',
       });
     }
+
+    if (!this.canEdit) {
+      this.taskForm.disable();
+    }
   }
 
   onSubmit(): void {
+    if (!this.canEdit) {
+      this.notificationService.error('You do not have permission to edit tasks');
+      return;
+    }
     if (this.taskForm.invalid) {
       return;
     }
@@ -92,6 +108,10 @@ export class TaskEditorComponent implements OnInit {
   }
 
   onDelete(): void {
+    if (!this.canEdit) {
+      this.notificationService.error('You do not have permission to delete tasks');
+      return;
+    }
     if (this.task) {
       this.deleted.emit(this.task);
     }
