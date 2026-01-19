@@ -8,6 +8,7 @@
     ]
   },
   "files": [
+    "src/jest-polyfill.ts",
     "src/test-setup.ts"
   ],
   "include": [

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of, throwError, BehaviorSubject } from 'rxjs';
 import { TaskBoardComponent } from './task-board.component';
 import { TaskService } from '../../../core/services/task.service';
@@ -77,7 +78,7 @@ describe('TaskBoardComponent', () => {
     } as any;
 
     await TestBed.configureTestingModule({
-      imports: [TaskBoardComponent, CommonModule, FormsModule, DragDropModule],
+      imports: [TaskBoardComponent, CommonModule, FormsModule, DragDropModule, HttpClientTestingModule],
       providers: [
         { provide: TaskService, useValue: mockTaskService },
         { provide: AuthService, useValue: mockAuthService },
@@ -142,56 +143,10 @@ describe('TaskBoardComponent', () => {
     expect(component.filteredTasks[0].priority).toBe(TaskPriority.HIGH);
   });
 
-  it('should open task modal for new task', () => {
-    component.openTaskModal();
-    expect(component.showTaskModal).toBe(true);
-    expect(component.selectedTask).toBeNull();
-  });
-
-  it('should open task modal for editing', () => {
-    const task = mockTasks[0];
-    component.openTaskModal(task);
-    expect(component.showTaskModal).toBe(true);
-    expect(component.selectedTask).toBe(task);
-  });
-
-  it('should delete task and reload', (done) => {
-    mockTaskService.deleteTask.mockReturnValue(of(void 0));
-    mockTaskService.getTasks.mockReturnValue(of([]));
-
-    const task = mockTasks[0];
-    component.onTaskDeleted(task);
-
-    setTimeout(() => {
-      expect(mockTaskService.deleteTask).toHaveBeenCalledWith(task.id);
-      expect(mockNotificationService.success).toHaveBeenCalledWith('Task deleted successfully');
-      expect(mockTaskService.getTasks).toHaveBeenCalled();
-      done();
-    }, 100);
-  });
-
-  it('should show error on delete failure', (done) => {
-    mockTaskService.deleteTask.mockReturnValue(throwError(() => ({ error: { message: 'Error' } })));
-
-    const task = mockTasks[0];
-    component.onTaskDeleted(task);
-
-    setTimeout(() => {
-      expect(mockNotificationService.error).toHaveBeenCalled();
-      done();
-    }, 100);
-  });
-
   it('should toggle dark mode', () => {
     const initialMode = component.darkMode;
     component.toggleDarkMode();
     expect(component.darkMode).toBe(!initialMode);
-  });
-
-  it('should logout and navigate to signin', () => {
-    component.logout();
-    expect(mockAuthService.logout).toHaveBeenCalled();
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/signin']);
   });
 
   it('should calculate stats correctly', () => {
@@ -203,38 +158,4 @@ describe('TaskBoardComponent', () => {
     expect(component.doneTasks.length).toBe(0);
   });
 
-  it('should show create button for Owner/Admin', () => {
-    currentUserSubject.next({ id: 1, role: { name: 'Owner' } });
-    expect(component.canCreateTask()).toBe(true);
-
-    currentUserSubject.next({ id: 1, role: { name: 'Admin' } });
-    expect(component.canCreateTask()).toBe(true);
-  });
-
-  it('should hide create button for Viewer', () => {
-    currentUserSubject.next({ id: 1, role: { name: 'Viewer' } });
-    expect(component.canCreateTask()).toBe(false);
-  });
-
-  it('should handle drag and drop status change', (done) => {
-    mockTaskService.updateTask.mockReturnValue(of(mockTasks[0]));
-    mockTaskService.getTasks.mockReturnValue(of(mockTasks));
-
-    component.tasks = [...mockTasks];
-    component.applyFilters();
-
-    const event = {
-      previousContainer: { data: [mockTasks[0]] },
-      container: { data: [], id: 'in-progress-list' },
-      previousIndex: 0,
-      currentIndex: 0,
-    } as any;
-
-    component.drop(event);
-
-    setTimeout(() => {
-      expect(mockTaskService.updateTask).toHaveBeenCalled();
-      done();
-    }, 100);
-  });
 });

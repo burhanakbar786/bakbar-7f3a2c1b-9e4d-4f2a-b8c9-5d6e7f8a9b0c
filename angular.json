@@ -71,15 +71,11 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "executor": "@nx/jest:jest",
+          "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "tsConfig": "apps/dashboard/tsconfig.spec.json",
-            "assets": [],
-            "styles": [
-              "apps/dashboard/src/styles.css"
-            ],
-            "scripts": []
+            "jestConfig": "apps/dashboard/jest.config.ts",
+            "passWithNoTests": true
           }
         }
       }

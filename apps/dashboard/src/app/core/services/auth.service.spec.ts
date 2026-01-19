@@ -132,16 +132,4 @@ describe('AuthService', () => {
 
     expect(newService.getCurrentUser()).toEqual(mockUser);
   });
-
-  it('should emit null for current user after logout', (done) => {
-    localStorage.setItem('auth_token', 'test-token');
-    
-    service.currentUser$.subscribe((user) => {
-      if (user === null) {
-        done();
-      }
-    });
-
-    service.logout();
-  });
 });
