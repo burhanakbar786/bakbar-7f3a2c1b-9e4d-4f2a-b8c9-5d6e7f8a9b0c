@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { TaskService } from '../../../core/services/task.service';
 import { AuthService } from '../../../core/services/auth.service';
@@ -15,6 +16,17 @@ import { NotificationComponent } from '../../../shared/notification/logic/notifi
   imports: [CommonModule, FormsModule, DragDropModule, TaskEditorComponent, NotificationComponent],
   templateUrl: '../template/task-board.component.html',
   styleUrls: ['../styles/task-board.component.css'],
+  animations: [
+    trigger('taskAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(-30px) scale(0.9)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateX(0) scale(1)' }))
+      ]),
+      transition(':leave', [
+        animate('250ms ease-in', style({ opacity: 0, transform: 'translateX(30px) scale(0.9)' }))
+      ])
+    ])
+  ]
 })
 export class TaskBoardComponent implements OnInit {
   tasks: ITask[] = [];
@@ -201,21 +213,25 @@ export class TaskBoardComponent implements OnInit {
 
   getPriorityColor(priority: string): string {
     const colors: Record<string, string> = {
-      LOW: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-      MEDIUM: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-      HIGH: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
+      LOW: 'bg-green-200 text-green-900 font-extrabold dark:bg-green-500 dark:text-gray-900',
+      MEDIUM: 'bg-yellow-200 text-yellow-900 font-extrabold dark:bg-yellow-400 dark:text-gray-900',
+      HIGH: 'bg-red-200 text-red-900 font-extrabold dark:bg-red-500 dark:text-white',
     };
     return colors[priority] || colors['MEDIUM'];
   }
 
   getTaskStats() {
+    const todoCount = this.tasks.filter(t => t.status === TaskStatus.TODO).length;
+    const inProgressCount = this.tasks.filter(t => t.status === TaskStatus.IN_PROGRESS).length;
+    const doneCount = this.tasks.filter(t => t.status === TaskStatus.DONE).length;
+    
     return {
       total: this.tasks.length,
-      todo: this.todoTasks.length,
-      inProgress: this.inProgressTasks.length,
-      done: this.doneTasks.length,
+      todo: todoCount,
+      inProgress: inProgressCount,
+      done: doneCount,
       completionRate: this.tasks.length
-        ? Math.round((this.doneTasks.length / this.tasks.length) * 100)
+        ? Math.round((doneCount / this.tasks.length) * 100)
         : 0,
     };
   }

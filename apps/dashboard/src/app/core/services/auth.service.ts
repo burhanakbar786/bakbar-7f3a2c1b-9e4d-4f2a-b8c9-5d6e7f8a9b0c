@@ -5,13 +5,32 @@ import { Router } from '@angular/router';
 import { LoginDto, AuthResponse } from '@turbovets/data';
 import { environment } from '../../../environments/environment';
 
+/**
+ * Authentication Service
+ * 
+ * Manages user authentication state and JWT token lifecycle.
+ * Handles login/logout and provides authentication status to guards.
+ * 
+ * Security Features:
+ * - JWT token storage in localStorage
+ * - Automatic token validation
+ * - Session persistence across page refreshes
+ * - Secure logout with cleanup
+ * 
+ * @Injectable - Available application-wide as singleton
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  /** 
+   * Reactive stream of current authenticated user.
+   * Components subscribe to this for user state updates.
+   */
   private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
+  // LocalStorage keys for secure token and user data persistence
   private readonly TOKEN_KEY = 'auth_token';
   private readonly USER_KEY = 'current_user';
 
@@ -19,6 +38,7 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
   ) {
+    // Restore session on service initialization (page refresh)
     this.loadUserFromStorage();
   }
 

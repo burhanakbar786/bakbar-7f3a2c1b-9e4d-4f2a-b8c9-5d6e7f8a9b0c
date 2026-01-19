@@ -1,15 +1,19 @@
 @if (notification$ | async; as notification) {
-  <div class="fixed bottom-4 right-4 z-50 animate-slide-up">
-    <div class="flex items-center gap-3 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-4 max-w-md">
-      <div class="flex-shrink-0 w-8 h-8 rounded-full {{ getColorForType(notification.type) }} flex items-center justify-center text-white font-bold">
+  <div class="fixed bottom-6 right-6 z-50 animate-slide-up">
+    <div class="flex items-center gap-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-2xl shadow-2xl border-2 border-gray-200 dark:border-gray-700 p-5 max-w-md hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.02]">
+      <!-- Enhanced icon with pulse animation -->
+      <div class="flex-shrink-0 w-10 h-10 rounded-xl {{ getColorForType(notification.type) }} flex items-center justify-center text-white font-bold text-lg shadow-lg icon-pulse">
         {{ getIconForType(notification.type) }}
       </div>
-      <p class="flex-1 text-sm text-gray-900 dark:text-white">
+      <!-- Message with better typography -->
+      <p class="flex-1 text-sm font-medium text-gray-900 dark:text-white leading-relaxed">
         {{ notification.message }}
       </p>
+      <!-- Enhanced close button -->
       <button
         (click)="close()"
-        class="flex-shrink-0 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+        class="flex-shrink-0 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200 transform hover:scale-110 hover:rotate-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-lg p-1"
+        aria-label="Close notification"
       >
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>

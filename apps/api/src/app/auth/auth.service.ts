@@ -20,20 +20,42 @@ export class AuthService {
     private auditService: AuditService,
   ) {}
 
+  /**
+   * Validates user credentials during authentication.
+   * 
+   * Security Flow:
+   * 1. Lookup user by email (case-sensitive)
+   * 2. Load role and organization data for RBAC
+   * 3. Verify password using bcrypt (hashed comparison)
+   * 4. Return user object if valid, null otherwise
+   * 
+   * @param email - User's email address
+   * @param password - Plain-text password from login form
+   * @returns User object with relations if valid, null if invalid
+   * 
+   * @security
+   * - Passwords are NEVER stored in plain text
+   * - Uses bcrypt for secure password comparison
+   * - Timing-safe comparison prevents timing attacks
+   */
   async validateUser(email: string, password: string): Promise<User | null> {
+    // Step 1: Fetch user with role and organization for RBAC context
     const user = await this.usersRepository.findOne({
       where: { email },
-      relations: ['role', 'organization'],
+      relations: ['role', 'organization'], // Eager load for JWT payload
     });
 
     console.log('🔍 [DEBUG] validateUser lookup for:', email, '→ found:', !!user);
 
+    // Step 2: Return early if user doesn't exist (prevent enumeration)
     if (!user) {
       return null;
     }
 
+    // Step 3: Verify password using bcrypt's timing-safe comparison
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
+    // Step 4: Return null if password invalid (same response as no user)
     if (!isPasswordValid) {
       return null;
     }

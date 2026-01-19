@@ -18,8 +18,26 @@ export class TasksService {
     private auditService: AuditService,
   ) {}
 
+  /**
+   * Creates a new task with RBAC permission checks.
+   * 
+   * Access Control:
+   * - Viewers: DENIED (read-only role)
+   * - Admins: Can create tasks in their org
+   * - Owners: Can create tasks in their org + child orgs
+   * 
+   * Audit Trail:
+   * - Logs CREATE_TASK action with task details
+   * - Records user ID, timestamp, and resource ID
+   * 
+   * @param createTaskDto - Task data from request body
+   * @param user - Authenticated user from JWT (injected by @CurrentUser)
+   * @returns Newly created task entity
+   * @throws ForbiddenException if user lacks create permission
+   * @throws NotFoundException if organization doesn't exist
+   */
   async create(createTaskDto: CreateTaskDto, user: any): Promise<Task> {
-    // Check if user has permission to create tasks
+    // RBAC Check: Viewers cannot create tasks (read-only)
     if (user.role.name === RoleName.VIEWER) {
       throw new ForbiddenException('Viewers cannot create tasks');
     }

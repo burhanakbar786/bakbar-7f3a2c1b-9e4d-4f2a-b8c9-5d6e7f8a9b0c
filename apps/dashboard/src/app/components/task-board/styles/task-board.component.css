@@ -8,3 +8,325 @@
 kbd {
   font-family: ui-monospace, monospace;
 }
+
+/* Smooth Drag & Drop Animations - GPU Accelerated */
+.cdk-drag {
+  cursor: grab !important;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.cdk-drag:active {
+  cursor: grabbing !important;
+}
+
+.cdk-drag:hover {
+  transform: translate3d(0, -2px, 0);
+  transition: transform 120ms cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* Instant feedback while dragging */
+.cdk-drop-list-dragging .cdk-drag:not(.cdk-drag-preview):not(.cdk-drag-dragging) {
+  transition: transform 120ms cubic-bezier(0.2, 0, 0.2, 1) !important;
+}
+
+/* Dragging state - ultra smooth with GPU */
+.cdk-drag-dragging {
+  opacity: 0.6 !important;
+  cursor: grabbing !important;
+  z-index: 1000;
+  transform: translate3d(0, 0, 0) rotate(2deg);
+  transition: opacity 150ms ease;
+  will-change: transform;
+}
+
+/**
+ * Drag Placeholder Styling
+ * 
+ * The placeholder is the "ghost" element that shows where the dragged item will drop.
+ * It stays in the original position while the preview follows the cursor.
+ */
+.cdk-drag-placeholder {
+  opacity: 0.4;
+  background: #e5e7eb;
+  border: 2px dashed #9ca3af;
+  border-radius: 8px;
+  transform: translate3d(0, 0, 0) scale(0.97);
+  transition: transform 120ms ease;
+}
+
+/**
+ * Dark Mode Placeholder
+ * Matches the exact card background color (gray-800) for seamless appearance
+ * Uses same color as .card dark mode background for consistency
+ */
+.dark .cdk-drag-placeholder {
+  background: rgb(31, 41, 55);
+  border-color: #6366f1;
+  opacity: 0.7;
+}
+
+/* Drop list */
+.cdk-drop-list {
+  position: relative;
+  min-height: 200px;
+  transition: background-color 200ms cubic-bezier(0.2, 0, 0.2, 1),
+              border-color 200ms cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* Active drop zone */
+.cdk-drop-list-dragging {
+  background: rgba(99, 102, 241, 0.08) !important;
+  border-color: rgba(99, 102, 241, 0.7) !important;
+}
+
+/* Dark mode drop zone */
+:root.dark .cdk-drop-list-dragging,
+.dark .cdk-drop-list-dragging {
+  background: rgba(99, 102, 241, 0.15) !important;
+  border-color: rgba(99, 102, 241, 0.8) !important;
+}
+
+/**
+ * Drag & Drop Preview Styling
+ * 
+ * The drag preview is the floating element that follows the cursor while dragging.
+ * It inherits background from the .card class but we ensure proper dark mode support.
+ */
+.cdk-drag-preview {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  opacity: 0.95;
+  transform: translate3d(0, 0, 0) rotate(3deg);
+  will-change: transform;
+}
+
+/**
+ * Dark Mode Drag Preview
+ * Enhanced shadow and purple border glow for better visibility in dark mode
+ */
+.dark .cdk-drag-preview {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7),
+              0 0 0 2px rgba(99, 102, 241, 0.5);
+}
+
+/* Task card - inherits background from global styles */
+.card {
+  position: relative;
+  transform: translate3d(0, 0, 0);
+  transition: transform 150ms cubic-bezier(0.2, 0, 0.2, 1),
+              box-shadow 150ms cubic-bezier(0.2, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.card:hover:not(.cdk-drag-dragging) {
+  transform: translate3d(0, -3px, 0);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Dark mode card hover shadow */
+.dark .card:hover:not(.cdk-drag-dragging) {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Priority badge animations - GPU accelerated */
+.card span[class*="px-2"] {
+  transform: translate3d(0, 0, 0);
+  transition: transform 120ms cubic-bezier(0.2, 0, 0.2, 1);
+  backface-visibility: hidden;
+  font-weight: 700;
+}
+
+.card:hover:not(.cdk-drag-dragging) span[class*="px-2"] {
+  transform: translate3d(0, 0, 0) scale(1.08);
+}
+
+/* Smooth transitions for task status changes */
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0.2, 0, 0.2, 1);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* Column header pulse on drag over */
+.cdk-drop-list-dragging + h2 {
+  animation: header-pulse 600ms ease-in-out;
+}
+
+@keyframes header-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Stats card hover effects - GPU accelerated */
+.bg-white.dark\:bg-gray-800.rounded-lg.shadow-sm {
+  transform: translate3d(0, 0, 0);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  backface-visibility: hidden;
+}
+
+.bg-white.dark\:bg-gray-800.rounded-lg.shadow-sm:hover {
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.15);
+}
+
+/* Search and filter inputs smooth focus */
+.input {
+  transform: translate3d(0, 0, 0);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  backface-visibility: hidden;
+}
+
+.input:focus {
+  transform: translate3d(0, 0, 0) scale(1.01);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1),
+              0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+/* Task column smooth transitions */
+.task-column {
+  animation: slideInColumn 600ms cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+.task-column:nth-child(1) { animation-delay: 0ms; }
+.task-column:nth-child(2) { animation-delay: 100ms; }
+.task-column:nth-child(3) { animation-delay: 200ms; }
+
+@keyframes slideInColumn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Empty drop list visual cue */
+.cdk-drop-list:empty::after {
+  content: 'Drop tasks here';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: rgba(107, 114, 128, 0.5);
+  font-size: 0.875rem;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  animation: fade-pulse 2s ease-in-out infinite;
+}
+
+@keyframes fade-pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Smooth button hover effects - GPU accelerated */
+.btn {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  backface-visibility: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 400ms cubic-bezier(0.4, 0, 0.2, 1),
+              height 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: width, height;
+}
+
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn:hover {
+  transform: translate3d(0, -2px, 0) scale(1.01);
+  box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+}
+
+.btn:active {
+  transform: translate3d(0, 0, 0) scale(0.98);
+}
+
+/* Priority badge gradient effects */
+.bg-red-100 {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+}
+
+.bg-yellow-100 {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+}
+
+.bg-green-100 {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+}
+
+/* Stat cards entrance animation */
+.bg-white.dark\:bg-gray-800.rounded-lg.shadow-sm {
+  animation: fadeInUp 500ms cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+.grid > .bg-white.dark\:bg-gray-800.rounded-lg.shadow-sm:nth-child(1) { animation-delay: 0ms; }
+.grid > .bg-white.dark\:bg-gray-800.rounded-lg.shadow-sm:nth-child(2) { animation-delay: 100ms; }
+.grid > .bg-white.dark\:bg-gray-800.rounded-lg.shadow-sm:nth-child(3) { animation-delay: 200ms; }
+.grid > .bg-white.dark\:bg-gray-800.rounded-lg.shadow-sm:nth-child(4) { animation-delay: 300ms; }
+
+/* Smooth scrollbar for task lists */
+.cdk-drop-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cdk-drop-list::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.cdk-drop-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, 
+    rgba(99, 102, 241, 0.3) 0%, 
+    rgba(168, 85, 247, 0.3) 100%);
+  border-radius: 10px;
+  transition: background 300ms ease;
+}
+
+.cdk-drop-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, 
+    rgba(99, 102, 241, 0.5) 0%, 
+    rgba(168, 85, 247, 0.5) 100%);
+}
+
+/* Interactive keyboard shortcuts */
+kbd {
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+kbd:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
