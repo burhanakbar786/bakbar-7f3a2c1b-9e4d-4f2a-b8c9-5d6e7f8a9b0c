@@ -1050,13 +1050,13 @@ curl -X GET http://localhost:3000/api/organizations \
 
 ## 🧪 Testing
 
-### Run Tests
+### Unit Tests (Jest)
 
 ```bash
-npm run test:api        # Backend tests (Jest)
-npm run test:dashboard  # Frontend tests (Jest)
-npm test               # All tests
-npm test -- --coverage # Coverage report
+npm test                    # Run all unit tests
+npm run test:api           # Backend tests only
+npm run test:dashboard     # Frontend tests only
+npm test -- --coverage     # Coverage report
 ```
 
 ### Test Coverage
@@ -1068,6 +1068,19 @@ npm test -- --coverage # Coverage report
 | **RBAC Utils** | 100% | Organization hierarchy, permission checks |
 | **Frontend Guards** | 100% | Route protection, auth redirects |
 | **Components** | 85% | UI rendering, drag-drop, filters |
+
+### E2E Test
+
+```bash
+npm run test:e2e            # Quick API authentication test
+```
+
+**What's tested:**
+- ✅ API server is running
+- ✅ Authentication endpoint works
+- ✅ JWT token generation
+
+**Note:** Make sure servers are running first (`npm run serve:all`)
 
 ### Example Test Cases
 
