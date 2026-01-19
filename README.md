@@ -82,6 +82,24 @@ npm run seed
 - 4 Users (see login table above)
 - 5 Sample tasks
 
+#### 🔧 Troubleshooting Fresh Clone
+
+**If you see "libs compile failed" error on a new laptop:**
+
+The shared libraries (`@turbovets/data` and `@turbovets/auth`) are TypeScript-only and don't require building. They work via TypeScript path mapping in [tsconfig.base.json](tsconfig.base.json):
+
+```json
+"paths": {
+  "@turbovets/data": ["libs/data/src/index.ts"],
+  "@turbovets/auth": ["libs/auth/src/index.ts"]
+}
+```
+
+**The libraries are automatically resolved at compile time** - no separate build step needed. Just ensure:
+1. `npm install` completed successfully
+2. Both `libs/data/src/index.ts` and `libs/auth/src/index.ts` exist
+3. Your IDE restarted/reloaded after cloning
+
 ### Run Applications
 
 ```bash

@@ -10,6 +10,8 @@
     "start:dashboard": "nx serve dashboard",
     "serve:all": "concurrently \"npm run start:api\" \"npm run start:dashboard\"",
     "seed": "cd apps/api && ts-node -r tsconfig-paths/register src/seed.ts",
+    "postinstall": "npm run build:libs",
+    "build:libs": "echo 'Libs are TypeScript only - no build needed'",
     "lint": "nx run-many --target=lint --all",
     "format": "nx format:write"
   },
