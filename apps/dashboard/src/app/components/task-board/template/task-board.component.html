@@ -198,11 +198,13 @@
             }
           </select>
         </div>
-        <div>
-          <button (click)="openNewTaskModal()" class="btn btn-primary w-full relative overflow-hidden group">
-            <span class="relative z-10">➕ New Task (N)</span>
-          </button>
-        </div>
+        @if (canCreateTask()) {
+          <div>
+            <button (click)="openNewTaskModal()" class="btn btn-primary w-full relative overflow-hidden group">
+              <span class="relative z-10">➕ New Task (N)</span>
+            </button>
+          </div>
+        }
       </div>
     </div>
 

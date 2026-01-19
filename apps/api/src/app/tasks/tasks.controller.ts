@@ -10,8 +10,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { CreateTaskDto, UpdateTaskDto } from '@turbovets/data';
-import { JwtAuthGuard, CurrentUser } from '@turbovets/auth';
+import { CreateTaskDto, UpdateTaskDto, RoleName } from '@turbovets/data';
+import { JwtAuthGuard, CurrentUser, Roles, RolesGuard } from '@turbovets/auth';
 
 @Controller('tasks')
 @UseGuards(JwtAuthGuard)
@@ -19,6 +19,8 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Post()
+  @UseGuards(RolesGuard)
+  @Roles(RoleName.OWNER, RoleName.ADMIN)
   create(@Body() createTaskDto: CreateTaskDto, @CurrentUser() user: any) {
     return this.tasksService.create(createTaskDto, user);
   }

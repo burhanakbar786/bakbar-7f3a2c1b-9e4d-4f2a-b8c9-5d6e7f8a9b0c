@@ -68,7 +68,7 @@ export class TaskBoardComponent implements OnInit {
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key === 'n' && !event.ctrlKey && !event.metaKey) {
       const target = event.target as HTMLElement;
-      if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') {
+      if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA' && this.canCreateTask()) {
         this.openNewTaskModal();
       }
     }
@@ -153,6 +153,10 @@ export class TaskBoardComponent implements OnInit {
   }
 
   openNewTaskModal(): void {
+    if (!this.canCreateTask()) {
+      this.notificationService.error('You do not have permission to create tasks');
+      return;
+    }
     this.selectedTask = null;
     this.showTaskModal = true;
   }
